@@ -52,12 +52,13 @@ router.use(bodyParser.json());
 // Create a new product listing
 router.post('/create', async (req, res) => {
   try {
-    const { name, description, price, seller } = req.body;
+    const { name, description, price, seller , chatRoomId } = req.body;
     const newProductListing = new ProductListing({
       name,
       description,
       price,
       seller,
+      chatRoomId,
     });
 
     newProductListing.save()

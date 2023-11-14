@@ -7,10 +7,8 @@ const productListingSchema = mongoose.Schema(
         },
         description: String,
         price: Number,
-        seller: { 
-            type: String,
-             
-        },
+        seller: {type: String},
+        chatRoomId: String,
     }
 );
   

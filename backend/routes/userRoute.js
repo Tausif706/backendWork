@@ -77,22 +77,33 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Route for User Login (without authentication)
-router.post('/logged', async (req, res) => {
-  const { email } = req.body;
 
+// Route for Get All Books from database
+router.get('/', async (request, response) => {
   try {
-    const user = await User.findOne({ email });
+    const user = await User.find({});
 
-    if (user) {
-      console.log(user);
-      res.json({ message: 'User found.', user });
-    } else {
-      res.json({ message: 'User not found.' });
-    }
+    return response.status(200).json({ user });
   } catch (error) {
     console.log(error.message);
-    res.status(500).send({ message: error.message });
+    response.status(500).send({ message: error.message });
+  }
+});
+
+// Route to find a user by email
+router.get('/:email', async (req, res) => {
+  const { email } = req.params;
+  console.log("the user is ",email);
+  try {
+    const user = await User.findOne({ email });
+    
+    if (user) {
+      return res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
